@@ -22,7 +22,7 @@ The data file doesn't lend itself nicely to work with. This script converts it t
 
 ## Description
 
-The data is stored as a "csv" file. The first 10 lines
+The data is stored as a "csv" file. The first 9 lines
 
 ```
 Start Time: 2017/01/03, 10:50:16.920
