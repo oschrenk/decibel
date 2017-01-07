@@ -1,6 +1,6 @@
 # Decibel
 
-I use (Decibel 10th Pro Noise Meter)[http://skypaw.com/decibel10th.html] to measure noise levels in the office. With the app you can record noise levels, and, as an export option, send the historical data as a zip file to your email address.
+I use [Decibel 10th Pro Noise Meter](http://skypaw.com/decibel10th.html) to measure noise levels in the office. With the app you can record noise levels, and, as an export option, send the historical data as a zip file to your email address.
 
 The data file doesn't lend itself nicely to work with. This script converts it to
 
@@ -49,7 +49,7 @@ contain a description of the session and is then followed by one entry a line of
 
 ## Requirements
 
-* the (Decibel 10th Pro Noise Meter)[http://skypaw.com/decibel10th.html] app.
+* the [Decibel 10th Pro Noise Meter](http://skypaw.com/decibel10th.html) app.
 * working Ruby installation
 
 ```
