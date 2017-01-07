@@ -3,7 +3,6 @@
 require 'rubygems'
 require 'zip'
 require 'date'
-require 'tempfile'
 
 PREFIX_LINE_COUNT = 10
 MS = 24 * 60 * 60 * 1000
