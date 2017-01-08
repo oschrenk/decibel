@@ -15,9 +15,13 @@ def toNano(time)
   "#{'%.f0' % (time.to_f * NANO)}"
 end
 
-def putDDL
+def putPreamble
+ puts "# DDL"
  puts "CREATE DATABASE IF NOT EXISTS noise"
  puts
+
+ puts "# DML"
+ puts "# CONTEXT-DATABASE: noise"
 end
 
 def putEntry(time,value)
@@ -60,7 +64,7 @@ Zip::File.open(input) do |zipfile|
 			fraction = elapsed.to_f / total_line_count
 		elsif n == PREFIX_LINE_COUNT
       current_time = start_time
-      putDDL
+      putPreamble
       putEntry(current_time, line.strip)
 		elsif n > PREFIX_LINE_COUNT
       current_time = start_time + Rational(fraction * (n - PREFIX_LINE_COUNT), MS_IN_DAY)
