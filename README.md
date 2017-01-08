@@ -2,22 +2,11 @@
 
 I use [Decibel 10th Pro Noise Meter](http://skypaw.com/decibel10th.html) to measure noise levels in the office. With the app you can record noise levels, and, as an export option, send the historical data as a zip file to your email address.
 
-The data file doesn't lend itself nicely to work with. This script converts it to
+The data file doesn't lend itself nicely to work with. This script converts it to something you can use with InfluxDB import
 
 ```
-"2017-01-03T12:42:51.397029+00:00","57.2"
-"2017-01-03T12:42:51.410692+00:00","57.8"
-"2017-01-03T12:42:51.424356+00:00","53.7"
-"2017-01-03T12:42:51.438019+00:00","53.1"
-"2017-01-03T12:42:51.451683+00:00","51.7"
-"2017-01-03T12:42:51.465346+00:00","59.3"
-"2017-01-03T12:42:51.479009+00:00","63.2"
-```
-
-## Usage
-
-```
-./decibel.rb Decibel10thData.zip
+./decibel.rb Decibel10thData.zip > data
+influx -import -path=data -precision=ms
 ```
 
 ## Description
@@ -51,6 +40,8 @@ contain a description of the session and is then followed by one entry a line of
 
 * the [Decibel 10th Pro Noise Meter](http://skypaw.com/decibel10th.html) app.
 * working Ruby installation
+* working InfluxDB
+* working Grafana
 
 ```
 bundle install --path vendor/bundle
