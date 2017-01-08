@@ -2,13 +2,19 @@
 
 require 'rubygems'
 require 'zip'
-require 'date'
+require 'time'
 require 'tempfile'
 
 PREFIX_LINE_COUNT = 10
-MS = 24 * 60 * 60 * 1000
+MS_IN_DAY = 24 * 60 * 60 * 1000
+NANO = 1000 * 1000 * 1000
 
-zipFile = ARGV[0]
+def toNano(time)
+  "#{'%.f0' % (time.to_f * NANO)}"
+end
+
+
+input = ARGV[0]
 NAME = 'Decibel10thData.csv'
 out_path = "#{Dir.pwd}/#{NAME}"
 File.delete(out_path) if File.exist?(out_path)
@@ -18,7 +24,7 @@ File.delete(out_path) if File.exist?(out_path)
 # Turning these warnings off
 Zip.warn_invalid_date = false
 
-Zip::File.open(zipFile) do |zipfile|
+Zip::File.open(input) do |zipfile|
 	# Find specific entry
 	entry = zipfile.glob(NAME).first
 	entry.extract(out_path)
@@ -33,20 +39,20 @@ Zip::File.open(zipFile) do |zipfile|
 		if n == 1
       # eg. "Start Time: 2017/01/03, 10:50:16.920"
       date = line[12..-1].strip
-      start_time = DateTime.strptime(date, "%Y/%m/%d,	%H:%M:%S.%L")
+      start_time = Time.strptime(date, "%Y/%m/%d,	%H:%M:%S.%L")
 		elsif n == 3
       # eg. "End Time: 2017/01/03, 12:42:51.520"
       date = line[10..-1].strip
-      end_time = DateTime.strptime(date, "%Y/%m/%d,	%H:%M:%S.%L")
+      end_time = Time.strptime(date, "%Y/%m/%d,	%H:%M:%S.%L")
 
-      elapsed = ((end_time - start_time) * MS).to_i
+      elapsed = ((end_time - start_time) * MS_IN_DAY).to_i
 			fraction = elapsed.to_f / total_line_count
 		elsif n == PREFIX_LINE_COUNT
       current_time = start_time
-      puts "\"#{current_time.iso8601(6)}\",\"#{line.strip}\""
+      puts "\"#{toNano(current_time)}\",\"#{line.strip}\""
 		elsif n > PREFIX_LINE_COUNT
-      current_time = start_time + Rational(fraction * (n - PREFIX_LINE_COUNT), MS)
-      puts "\"#{current_time.iso8601(6)}\",\"#{line.strip}\""
+      current_time = start_time + Rational(fraction * (n - PREFIX_LINE_COUNT), MS_IN_DAY)
+      puts "\"#{toNano(current_time)}\",\"#{line.strip}\""
 		end
 	end
 end
