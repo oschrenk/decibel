@@ -17,7 +17,7 @@ end
 
 def putPreamble
  puts "# DDL"
- puts "CREATE DATABASE IF NOT EXIST #{TABLE}"
+ puts "CREATE DATABASE #{TABLE}"
  puts
 
  puts "# DML"
