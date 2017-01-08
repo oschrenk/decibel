@@ -9,7 +9,8 @@ PREFIX_LINE_COUNT = 10
 MS_IN_DAY = 24 * 60 * 60 * 1000
 NANO = 1000 * 1000 * 1000
 
-KEY = "dba"
+KEY   = "dba"
+TABLE = "noise"
 
 def toNano(time)
   "#{'%.f0' % (time.to_f * NANO)}"
@@ -17,11 +18,11 @@ end
 
 def putPreamble
  puts "# DDL"
- puts "CREATE DATABASE IF NOT EXISTS noise"
+ puts "CREATE DATABASE IF NOT EXIST #{TABLE}"
  puts
 
  puts "# DML"
- puts "# CONTEXT-DATABASE: noise"
+ puts "# CONTEXT-DATABASE: #{TABLE}"
 end
 
 def putEntry(time,value)
