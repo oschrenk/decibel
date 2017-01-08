@@ -13,6 +13,10 @@ def toNano(time)
   "#{'%.f0' % (time.to_f * NANO)}"
 end
 
+def putEntry(time,value)
+  puts "\"#{toNano(time)}\",\"#{value}\""
+end
+
 
 input = ARGV[0]
 NAME = 'Decibel10thData.csv'
@@ -49,10 +53,10 @@ Zip::File.open(input) do |zipfile|
 			fraction = elapsed.to_f / total_line_count
 		elsif n == PREFIX_LINE_COUNT
       current_time = start_time
-      puts "\"#{toNano(current_time)}\",\"#{line.strip}\""
+      putEntry(current_time, line.strip)
 		elsif n > PREFIX_LINE_COUNT
       current_time = start_time + Rational(fraction * (n - PREFIX_LINE_COUNT), MS_IN_DAY)
-      puts "\"#{toNano(current_time)}\",\"#{line.strip}\""
+      putEntry(current_time, line.strip)
 		end
 	end
 end
