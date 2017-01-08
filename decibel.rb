@@ -9,12 +9,14 @@ PREFIX_LINE_COUNT = 10
 MS_IN_DAY = 24 * 60 * 60 * 1000
 NANO = 1000 * 1000 * 1000
 
+KEY = "dba"
+
 def toNano(time)
   "#{'%.f0' % (time.to_f * NANO)}"
 end
 
 def putEntry(time,value)
-  puts "\"#{toNano(time)}\",\"#{value}\""
+  puts "#{KEY} value=#{value} #{toNano(time)}"
 end
 
 
