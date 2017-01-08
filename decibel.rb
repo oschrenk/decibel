@@ -7,13 +7,12 @@ require 'tempfile'
 
 PREFIX_LINE_COUNT = 10
 MS_IN_DAY = 24 * 60 * 60 * 1000
-NANO = 1000 * 1000 * 1000
 
 KEY   = "dba"
 TABLE = "noise"
 
-def toNano(time)
-  "#{'%.f0' % (time.to_f * NANO)}"
+def stamp(time)
+  "#{(time.to_f * 1000).to_i}"
 end
 
 def putPreamble
@@ -26,7 +25,7 @@ def putPreamble
 end
 
 def putEntry(time,value)
-  puts "#{KEY} value=#{value} #{toNano(time)}"
+  puts "#{KEY} value=#{value} #{stamp(time)}"
 end
 
 
